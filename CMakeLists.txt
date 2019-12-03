@@ -6,6 +6,7 @@ if(MSVC)
 	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
 	
 endif()
+add_definitions(/ZI)
 
 add_library(websocket_server
 	websocket_server.h

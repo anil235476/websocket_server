@@ -41,7 +41,7 @@ class session : public std::enable_shared_from_this<session<Caller>>
 	void
 		on_fail()
 	{
-		caller_->unregister(UI_SERVER_ID);
+		std::cout << "on fail called in websocket server \n";
 	}
 public:
 	// Take ownership of the socket
@@ -68,6 +68,10 @@ public:
 					std::placeholders::_1)));
 	}
 
+	~session() {
+		caller_->unregister(UI_SERVER_ID);
+	}
+
 	void
 		on_accept(boost::system::error_code ec)
 	{
@@ -78,7 +82,7 @@ public:
 		//2. register its sender with function register method
 		// Read a message
 		caller_->register_id(UI_SERVER_ID, std::bind(&session::send,
-			shared_from_this(), std::placeholders::_1));
+			this, std::placeholders::_1));
 		do_read();
 	}
 
