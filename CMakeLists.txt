@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.7)
-set(BOOST_LIB "D:/boost_1_69_0/boost_1_69_0")
+#set(BOOST_LIB "D:/boost_1_69_0/boost_1_69_0")
 
 if(MSVC)
 	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
