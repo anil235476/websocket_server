@@ -69,6 +69,8 @@ public:
 	}
 
 	~session() {
+		std::cout << "~session\n";
+		caller_->dispatch(receiver_id_, "closed"); //todo: make this proper information.
 		caller_->unregister(UI_SERVER_ID);
 	}
 
