@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 3.7)
-#set(BOOST_LIB "D:/boost_1_69_0/boost_1_69_0")
 
 if(MSVC)
 	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
@@ -13,12 +12,10 @@ add_library(websocket_server
 		websocket_server.cpp
 	)
 
-target_include_directories(websocket_server PUBLIC 
+target_include_directories(websocket_server PRIVATE 
 	$<BUILD_INTERFACE:${BOOST_LIB}>
-	#$<BUILD_INTERFACE:${ABSL_PATH}>
-	${CMAKE_CURRENT_SOURCE_DIR}/../
 	)
 	
-target_link_libraries(websocket_server 
+target_link_libraries(websocket_server PUBLIC 
 func_thread_handler
 )
