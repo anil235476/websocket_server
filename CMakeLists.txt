@@ -14,7 +14,15 @@ add_library(websocket_server
 
 target_include_directories(websocket_server PRIVATE 
 	$<BUILD_INTERFACE:${BOOST_LIB}>
+	PUBLIC
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 	)
+
+target_link_directories( websocket_server PUBLIC
+
+	$<BUILD_INTERFACE:${BOOST_LIB}/stage/lib>
+
+)
 	
 target_link_libraries(websocket_server PUBLIC 
 func_thread_handler
