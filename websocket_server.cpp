@@ -69,9 +69,9 @@ public:
 	}
 
 	~session() {
-		std::cout << "~session\n";
-		caller_->dispatch(receiver_id_, "closed"); //todo: make this proper information.
-		caller_->unregister(UI_SERVER_ID);
+		//std::cout << "~session\n";
+		//caller_->dispatch(receiver_id_, "closed"); //todo: make this proper information.
+		//caller_->unregister(UI_SERVER_ID);
 	}
 
 	void
@@ -229,12 +229,9 @@ public:
 };
 
 namespace grt {
-	void start_server_block(unsigned short port, int threads, util::func_thread_handler* caller, std::string const receiver_id) {
+	void start_server_block(unsigned short port, int threads, util::func_thread_handler* caller,
+		std::string const receiver_id, boost::asio::io_context& ioc) {
 		auto const address = boost::asio::ip::make_address("0.0.0.0");
-
-		// The io_context is required for all I/O
-		boost::asio::io_context ioc{ threads };
-
 		// Create and launch a listening port
 		std::make_shared<listener< util::func_thread_handler>>(
 			ioc, tcp::endpoint{ address, port })->run(caller, receiver_id);
@@ -251,5 +248,11 @@ namespace grt {
 		ioc.run();
 
 		return;
+	}
+	void start_server_block(unsigned short port, int threads, util::func_thread_handler* caller, std::string const receiver_id) {
+
+		// The io_context is required for all I/O
+		boost::asio::io_context ioc{ threads };
+		start_server_block(port, threads, caller, receiver_id, ioc);
 	}
 }//namespace grt

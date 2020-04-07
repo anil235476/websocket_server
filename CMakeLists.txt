@@ -12,7 +12,7 @@ add_library(websocket_server
 		websocket_server.cpp
 	)
 
-target_include_directories(websocket_server PRIVATE 
+target_include_directories(websocket_server PUBLIC 
 	$<BUILD_INTERFACE:${BOOST_LIB}>
 	PUBLIC
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
